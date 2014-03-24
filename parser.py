@@ -46,7 +46,7 @@ class MensaParser(html.parser.HTMLParser):
 			else:
 				self.current_row[0] = self.cur_date
 			del self.current_row[1]
-			if self.current_row[1]:
+			if self.current_row[2]:
 				try:
 					day, month = date_rgx.match(self.current_row[0]).groups()
 					the_date = date(date.today().year,int(month),int(day))
