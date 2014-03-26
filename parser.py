@@ -1,6 +1,7 @@
 import html.parser
 import html.entities
 from .dish import dish
+from .menu import menu
 from datetime import date
 import re
 
@@ -9,7 +10,7 @@ date_rgx = re.compile("\D*(\d*)\.(\d*)\.")
 def parse(data):
 	mp = MensaParser()
 	mp.feed(data.decode(encoding="latin_1",errors="ignore"))
-	return mp.dishes
+	return mp.menu
 
 class MensaParser(html.parser.HTMLParser):
 	def __init__(self):
@@ -23,7 +24,7 @@ class MensaParser(html.parser.HTMLParser):
 		self.tbl_cnt = 0
 		self.row_cnt = 0
 		self.cur_date = ""
-		self.dishes = []
+		self.menu = menu()
 
 	def handle_starttag(self,tag,attrs):
 		if tag == "table":
@@ -51,7 +52,7 @@ class MensaParser(html.parser.HTMLParser):
 					day, month = date_rgx.match(self.current_row[0]).groups()
 					the_date = date(date.today().year,int(month),int(day))
 					cur_dish = dish(the_date,*self.current_row[1:])
-					self.dishes.append(cur_dish)
+					self.menu.append(the_date,cur_dish)
 				except ValueError:
 					pass
 		if self.tbl_cnt == 1 and tag == "table":
