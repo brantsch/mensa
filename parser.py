@@ -1,6 +1,6 @@
 import html.parser
 import html.entities
-from . import dish
+from .dish import dish
 from datetime import date
 import re
 
@@ -50,7 +50,7 @@ class MensaParser(html.parser.HTMLParser):
 				try:
 					day, month = date_rgx.match(self.current_row[0]).groups()
 					the_date = date(date.today().year,int(month),int(day))
-					cur_dish = dish.dish(the_date,*self.current_row[1:])
+					cur_dish = dish(the_date,*self.current_row[1:])
 					self.dishes.append(cur_dish)
 				except ValueError:
 					pass
