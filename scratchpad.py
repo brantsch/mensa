@@ -27,7 +27,10 @@ def main():
 	#res = parse(fetch())
 	with open("speiseplan_beispiel.html","rb") as data:
 		html = str(data.read(),encoding="latin_1",errors="ignore")
-		res = parse(html)
+		themenu = parse(html)
+		for date in themenu.dates():
+			for dish in themenu[date]:
+				print(dish)
 		#return(res)
 		#for row in res:
 		#	print(row)
