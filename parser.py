@@ -9,7 +9,7 @@ import re
 date_rgx = re.compile("\D*(\d*)\.(\d*)\.?")
 
 def parse(data):
-	soup = BeautifulSoup(data.encode(encoding="latin_1",errors="ignore"))
+	soup = BeautifulSoup(data.decode(encoding="latin_1",errors="ignore"))
 	tbody = soup.body.table.tbody
 	# extract the relevant table from HTML
 	table = []
