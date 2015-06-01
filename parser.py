@@ -20,11 +20,14 @@ def parse(data):
 					sup.extract()
 				for br in td.find_all("br"):
 					br.extract()
-				#img = td.img
-				#if img:
-				#	print(img['alt'])
 				text = td.text.strip()
 				text = text.replace('\r\n','')
+				
+				# convert the 'V+' icon to ascii
+				img = td.img
+				if img and img['alt'] == "vegan":
+					text = "V+"
+				
 				row.append(text)
 				#if text:
 				#	print(repr(text))
