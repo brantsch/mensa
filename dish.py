@@ -12,6 +12,9 @@ class dish():
 		self.price_e = price_e
 		self.price_g = price_g
 
+	# ljust indents the indications, so dishes with multiple (character
+	# wide) flags do not fall out of line
 	def __str__(self):
-		s = "%s %s %s %s"%(self.date,' ' if not self.indications else self.indications,self.name,self.price_s)
+		s = "%s %s %s %s"%(self.date,str(self.indications).ljust(4),
+			self.name,self.price_s)
 		return s

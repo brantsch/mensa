@@ -18,13 +18,19 @@ def parse(data):
 			for td in tr.select("td"):
 				for sup in td.find_all("sup"):
 					sup.extract()
-				#img = td.img
-				#if img:
-				#	print(img['alt'])
+				for br in td.find_all("br"):
+					br.extract()
 				text = td.text.strip()
+				text = text.replace('\r\n','')
+				
+				# convert the 'V+' icon to ascii
+				img = td.img
+				if img and img['alt'] == "vegan":
+					text = "V+"
+				
 				row.append(text)
 				#if text:
-				#	print(text)
+				#	print(repr(text))
 			if any(row): #prevent empty rows
 				table.append(row)
 		except:
