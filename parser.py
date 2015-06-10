@@ -44,8 +44,9 @@ def parse(data):
 	cur_date = None
 	for row in table:
 		del row[1]
-		if row[0]:
-			day, month = date_rgx.match(row[0]).groups()
+		match = date_rgx.match(row[0])
+		if match:
+			day, month = match.groups()
 			cur_date = date(date.today().year,int(month),int(day))
 		a_dish = dish(cur_date,*row[1:])
 		themenu.append(cur_date,a_dish)
